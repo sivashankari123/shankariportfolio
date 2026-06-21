@@ -491,6 +491,128 @@
     .navbar-toggler-icon {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(148,163,184,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
+    /* ── BLOG TABS ── */
+    .blog-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .blog-tab-btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .blog-tab-btn:hover {
+      border-color: var(--border-accent);
+      color: var(--accent);
+    }
+    .blog-tab-btn.active {
+      background: var(--accent-dim);
+      border-color: var(--border-accent);
+      color: var(--accent);
+      box-shadow: 0 0 12px rgba(129,140,248,0.2);
+    }
+
+    /* ── LEARNING CARDS ── */
+    .lcard {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      height: 100%;
+    }
+    .lcard:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.35), 0 0 20px rgba(129,140,248,0.08);
+    }
+    .lcard--empty {
+      border-style: dashed;
+      cursor: default;
+    }
+    .lcard--empty:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: rgba(255,255,255,0.08);
+    }
+    .lcard-img {
+      height: 140px;
+      background: linear-gradient(135deg, rgba(129,140,248,0.12) 0%, rgba(129,140,248,0.04) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      font-size: 2.8rem;
+      color: var(--accent);
+    }
+    .lcard-img--dim {
+      background: rgba(255,255,255,0.02);
+      color: var(--text-faint);
+      font-size: 2rem;
+    }
+    .lcard-body { padding: 1.3rem 1.4rem; }
+    .lcard-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.75rem;
+    }
+    .lcard-tag {
+      font-size: 0.67rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 0.03em;
+    }
+    .lcard-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .lcard-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+    .lcard-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-faint);
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .lcard-arrow {
+      font-size: 1.2rem;
+      color: var(--accent);
+      transition: transform 0.2s;
+    }
+    .lcard:hover .lcard-arrow { transform: translateX(3px); }
+
+    /* Tab panel fade */
+    .blog-tab-panel { animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
   </style>
 </head>
 <body>
@@ -501,7 +623,8 @@
     <a href="#" class="brand">&lt;<span>Dev</span>/&gt;</a>
     <div class="nav-links d-none d-md-flex">
       <a href="#about">About</a>
-      <a href="#projects">Projects</a>
+      <!-- <a href="#projects">Projects</a> -->
+      <a href="#blog">Blog</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </div>
@@ -517,6 +640,7 @@
       <div class="col-lg-8">
         <div class="hero-eyebrow">Available for opportunities</div>
         <h1 class="hero-name">
+          Siva Shankari<br/>
           Full-Stack<br/>
           <span class="accent-word">Developer.</span>
         </h1>
@@ -525,9 +649,9 @@
           Software Developer with 8+ years of experience building scalable web applications, API-driven architectures, and AI-integrated solutions. Passionate about high-performance full-stack engineering using Python and modern frontend frameworks.
         </p>
         <div class="d-flex flex-wrap gap-2">
-          <a href="#projects" class="hero-cta" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'}); return false;">
+          <!-- <a href="#projects" class="hero-cta" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'}); return false;">
             <i class="bi bi-folder2-open"></i> View Projects
-          </a>
+          </a> -->
           <button onclick="showContactPopup()" class="hero-cta-ghost" style="cursor:pointer; border:1px solid var(--border-accent); background:transparent;">
             <i class="bi bi-send"></i> Get in Touch
           </button>
@@ -572,7 +696,7 @@
 
 
 <!-- ── PROJECTS ── -->
-<section id="projects" style="padding:5.5rem 0;">
+<section id="projects" style="padding:5.5rem 0; display:none;">
   <div class="container">
     <div class="mb-5">
       <div class="section-label">What I've built</div>
@@ -702,7 +826,132 @@
 </section>
 
 
-<!-- ── SKILLS ── -->
+
+<!-- ── BLOG / LEARNINGS ── -->
+<section id="blog" style="padding:5.5rem 0; border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="mb-5 reveal">
+      <div class="section-label">Always Learning</div>
+      <h2 class="section-title">Mini Projects & Learnings</h2>
+      <p class="section-sub">Small hands-on builds organised by tech — click a tab to explore what I've been working on.</p>
+    </div>
+
+    <!-- Tab Buttons -->
+    <div class="blog-tabs mb-4">
+      <button class="blog-tab-btn active" onclick="switchTab(event,'django')">
+        <i class="bi bi-braces"></i> Django
+      </button>
+      <button class="blog-tab-btn" onclick="switchTab(event,'fastapi')">
+        <i class="bi bi-lightning-charge"></i> FastAPI
+      </button>
+      <button class="blog-tab-btn" onclick="switchTab(event,'flask')">
+        <i class="bi bi-cup-hot"></i> Flask
+      </button>
+      <button class="blog-tab-btn" onclick="switchTab(event,'react')">
+        <i class="bi bi-stars"></i> React
+      </button>
+    </div>
+
+    <!-- Tab Panels -->
+
+    <!-- Django Tab -->
+    <div class="blog-tab-panel" id="tab-django">
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4">
+          <div class="lcard" onclick="new bootstrap.Modal(document.getElementById('wipModal')).show()">
+            <div class="lcard-img">
+              <i class="bi bi-table"></i>
+            </div>
+            <div class="lcard-body">
+              <div class="lcard-tags">
+                <span class="lcard-tag">Django</span>
+                <span class="lcard-tag">React.js</span>
+                <span class="lcard-tag">Tailwind CSS</span>
+              </div>
+              <h5 class="lcard-title">CRUD Operations</h5>
+              <p class="lcard-desc">Full create, read, update and delete flow using Django REST Framework + React frontend with Tailwind UI.</p>
+              <div class="lcard-footer">
+                <span><i class="bi bi-tools"></i> Coming Soon</span>
+                <i class="bi bi-arrow-right-short lcard-arrow"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="lcard lcard--empty">
+            <div class="lcard-img lcard-img--dim">
+              <i class="bi bi-plus-circle"></i>
+            </div>
+            <div class="lcard-body">
+              <h5 class="lcard-title" style="opacity:0.5;">More Django posts coming…</h5>
+              <p class="lcard-desc" style="opacity:0.4;">I'll keep adding new mini builds here as I learn.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FastAPI Tab -->
+    <div class="blog-tab-panel d-none" id="tab-fastapi">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="lcard lcard--empty">
+            <div class="lcard-img lcard-img--dim">
+              <i class="bi bi-lightning-charge"></i>
+            </div>
+            <div class="lcard-body">
+              <div class="lcard-tags"><span class="lcard-tag">FastAPI</span></div>
+              <h5 class="lcard-title" style="opacity:0.5;">FastAPI posts coming soon…</h5>
+              <p class="lcard-desc" style="opacity:0.4;">Currently working on FastAPI mini projects. Stay tuned!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flask Tab -->
+    <div class="blog-tab-panel d-none" id="tab-flask">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="lcard lcard--empty">
+            <div class="lcard-img lcard-img--dim">
+              <i class="bi bi-cup-hot"></i>
+            </div>
+            <div class="lcard-body">
+              <div class="lcard-tags"><span class="lcard-tag">Flask</span></div>
+              <h5 class="lcard-title" style="opacity:0.5;">Flask posts coming soon…</h5>
+              <p class="lcard-desc" style="opacity:0.4;">Flask mini projects and learnings will be posted here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- React Tab -->
+    <div class="blog-tab-panel d-none" id="tab-react">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="lcard lcard--empty">
+            <div class="lcard-img lcard-img--dim">
+              <i class="bi bi-stars"></i>
+            </div>
+            <div class="lcard-body">
+              <div class="lcard-tags"><span class="lcard-tag">React.js</span></div>
+              <h5 class="lcard-title" style="opacity:0.5;">React posts coming soon…</h5>
+              <p class="lcard-desc" style="opacity:0.4;">Component builds and React patterns will appear here soon.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
 <section id="skills" class="skills-section">
   <div class="container">
     <div class="mb-5 reveal">
@@ -825,16 +1074,16 @@
       <h3 class="section-title" style="font-size:2rem;">Got a project in mind?</h3>
       <p class="mt-3">I'm open to full-time roles, freelance projects, and collaborations.<br/>Let's build something great.</p>
       <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="tel:+918610729866" class="hero-cta">
-          <i class="bi bi-telephone-fill"></i> Call Me
+        <a href="mailto:shankari040192.bca@gmail.com" class="hero-cta">
+          <i class="bi bi-envelope-fill"></i> Email Me
         </a>
         <button onclick="showContactPopup()" class="hero-cta-ghost" style="cursor:pointer; border:1px solid var(--border-accent); background:transparent;">
           <i class="bi bi-chat-dots"></i> Get in Touch
         </button>
       </div>
       <div class="mt-4" style="color:var(--text-muted); font-size:0.9rem;">
-        <i class="bi bi-telephone" style="color:var(--accent);"></i>
-        &nbsp;<a href="tel:+918610729866" style="color:var(--accent); text-decoration:none; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.1rem; letter-spacing:0.04em;">+91 86107 29866</a>
+        <i class="bi bi-envelope" style="color:var(--accent);"></i>
+        &nbsp;<a href="mailto:shankari040192.bca@gmail.com" style="color:var(--accent); text-decoration:none; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1rem; letter-spacing:0.02em;">shankari040192.bca@gmail.com</a>
       </div>
     </div>
   </div>
@@ -846,20 +1095,17 @@
     <div class="modal-content" style="background:var(--bg-card); border:1px solid var(--border-accent); border-radius:14px; color:var(--text-primary);">
       <div class="modal-body text-center p-5">
         <div style="width:64px;height:64px;background:var(--accent-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
-          <i class="bi bi-telephone-fill" style="font-size:1.6rem;color:var(--accent);"></i>
+          <i class="bi bi-envelope-fill" style="font-size:1.6rem;color:var(--accent);"></i>
         </div>
-        <h5 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; margin-bottom:0.4rem;">Let's Talk!</h5>
-        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.8rem;">Feel free to call or WhatsApp me directly.</p>
+        <h5 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; margin-bottom:0.4rem;">Let's Connect!</h5>
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.8rem;">Drop me an email — I'll get back to you as soon as possible.</p>
         <div style="background:var(--bg-base); border:1px solid var(--border); border-radius:10px; padding:1.2rem 1.5rem; margin-bottom:1.8rem;">
-          <div style="font-size:0.7rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.4rem;">Mobile Number</div>
-          <div style="font-family:'Space Grotesk',sans-serif; font-size:1.6rem; font-weight:700; color:var(--accent); letter-spacing:0.05em;">+91 86107 29866</div>
+          <div style="font-size:0.7rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.4rem;">Email Address</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:700; color:var(--accent); letter-spacing:0.02em; word-break:break-all;">shankari040192.bca@gmail.com</div>
         </div>
         <div class="d-flex gap-3 justify-content-center flex-wrap">
-          <a href="tel:+918610729866" class="hero-cta" style="font-size:0.85rem; padding:0.65rem 1.4rem;">
-            <i class="bi bi-telephone-fill"></i> Call Now
-          </a>
-          <a href="https://wa.me/918610729866" target="_blank" class="hero-cta-ghost" style="font-size:0.85rem; padding:0.65rem 1.4rem; margin-left:0;">
-            <i class="bi bi-whatsapp"></i> WhatsApp
+          <a href="mailto:shankari040192.bca@gmail.com" class="hero-cta" style="font-size:0.85rem; padding:0.65rem 1.4rem;">
+            <i class="bi bi-envelope-fill"></i> Send Email
           </a>
         </div>
         <button type="button" class="btn btn-link mt-3" data-bs-dismiss="modal" style="color:var(--text-faint); font-size:0.8rem; text-decoration:none;">Close</button>
@@ -910,6 +1156,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  // Blog tab switching
+  function switchTab(e, tab) {
+    document.querySelectorAll('.blog-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.blog-tab-panel').forEach(p => p.classList.add('d-none'));
+    e.currentTarget.classList.add('active');
+    document.getElementById('tab-' + tab).classList.remove('d-none');
+  }
+
   // Scroll-based nav highlight
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
