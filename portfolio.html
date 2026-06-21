@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Full-Stack Developer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-base:       #0A0E1A;
+      --bg-card:       #111827;
+      --bg-card-hover: #151E30;
+      --accent:        #818CF8;
+      --accent-dim:    rgba(129,140,248,0.12);
+      --accent-glow:   rgba(129,140,248,0.35);
+      --text-primary:  #E2E8F0;
+      --text-muted:    #94A3B8;
+      --text-faint:    #4B5563;
+      --border:        rgba(255,255,255,0.06);
+      --border-accent: rgba(129,140,248,0.25);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h1, h2, h3, h4, .display-font {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: rgba(10,14,26,0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 0;
+    }
+    .site-nav .brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .site-nav .brand span { color: var(--accent); }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-left: 1.8rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 8rem 0 5rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(129,140,248,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 60%, rgba(129,140,248,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 1.5px;
+      background: var(--accent);
+    }
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 0.6rem;
+    }
+    .hero-name .accent-word { color: var(--accent); }
+    .hero-role {
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-bottom: 2rem;
+      max-width: 560px;
+    }
+    .hero-summary {
+      color: var(--text-muted);
+      max-width: 600px;
+      font-size: 0.97rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #0A0E1A;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+      padding: 0.75rem 1.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: box-shadow 0.25s, transform 0.2s;
+    }
+    .hero-cta:hover {
+      box-shadow: 0 0 24px var(--accent-glow);
+      transform: translateY(-1px);
+      color: #0A0E1A;
+    }
+    .hero-cta-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-left: 0.8rem;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .hero-cta-ghost:hover {
+      background: var(--accent-dim);
+      box-shadow: 0 0 18px var(--accent-glow);
+      color: var(--accent);
+    }
+
+    /* Stats row */
+    .stat-row {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .stat-item .stat-num span { color: var(--accent); }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.3rem;
+    }
+
+    /* ── SECTION ── */
+    section { padding: 5.5rem 0; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      height: 2px;
+      width: 36px;
+      background: var(--accent);
+      margin-top: 0.45rem;
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 540px;
+      margin-top: 0.8rem;
+    }
+
+    /* ── PROJECT CARDS ── */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      height: 100%;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(129,140,248,0.06);
+      background: var(--bg-card-hover);
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      opacity: 0.6;
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.9rem;
+      line-height: 1.3;
+    }
+    .stack-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .stack-pill {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.3rem;
+      line-height: 1.75;
+    }
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .feature-tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    /* Responsibilities */
+    .responsibilities {
+      margin: 1.2rem 0;
+    }
+    .responsibilities li {
+      color: var(--text-muted);
+      font-size: 0.87rem;
+      padding: 0.3rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+      line-height: 1.65;
+    }
+    .responsibilities li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── SKILLS ── */
+    .skills-section { background: rgba(17,24,39,0.4); }
+
+    .skill-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem 1.7rem;
+      height: 100%;
+      transition: border-color 0.2s;
+    }
+    .skill-group:hover { border-color: var(--border-accent); }
+
+    .skill-group-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .skill-group-label i { font-size: 0.85rem; }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .skill-chip {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.3rem 0.7rem;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.2s;
+    }
+    .skill-chip:hover {
+      background: var(--accent-dim);
+      border-color: var(--border-accent);
+      color: var(--accent);
+      box-shadow: 0 0 8px rgba(129,140,248,0.2);
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background: linear-gradient(135deg, rgba(129,140,248,0.04) 0%, transparent 60%);
+      border-top: 1px solid var(--border);
+    }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 3rem;
+      text-align: center;
+    }
+    .contact-card h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .contact-card p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 0;
+      color: var(--text-faint);
+      font-size: 0.8rem;
+    }
+    footer a { color: var(--text-faint); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      border: none;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-base); }
+    ::-webkit-scrollbar-thumb { background: #2D3748; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* ── SKILL CHIP ANIMATIONS ── */
+    @keyframes chipPulse {
+      0%, 100% { box-shadow: 0 0 0px rgba(129,140,248,0); }
+      50%       { box-shadow: 0 0 10px rgba(129,140,248,0.35); }
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* Skill group cards animate in when visible */
+    .skill-group {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s;
+    }
+    .skill-group.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Featured skills get a shimmer highlight */
+    .skill-chip.featured {
+      background: linear-gradient(90deg,
+        rgba(129,140,248,0.08) 0%,
+        rgba(129,140,248,0.22) 40%,
+        rgba(129,140,248,0.08) 100%);
+      background-size: 200% auto;
+      border-color: rgba(129,140,248,0.4);
+      color: var(--accent);
+      animation: shimmer 3s linear infinite, chipPulse 3s ease-in-out infinite;
+    }
+    .skill-chip.featured:hover {
+      background-size: 200% auto;
+      box-shadow: 0 0 14px rgba(129,140,248,0.4);
+    }
+
+    /* Section scroll-reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hamburger for mobile */
+    .navbar-toggler {
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.55rem;
+    }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(148,163,184,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a href="#" class="brand">&lt;<span>Dev</span>/&gt;</a>
+    <div class="nav-links d-none d-md-flex">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="hero-cta d-none d-md-inline-flex" style="padding:0.5rem 1.1rem; font-size:0.8rem;">Hire Me</a>
+  </div>
+</nav>
+
+
+<!-- ── HERO ── -->
+<section class="hero" id="about">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <div class="hero-eyebrow">Available for opportunities</div>
+        <h1 class="hero-name">
+          Full-Stack<br/>
+          <span class="accent-word">Developer.</span>
+        </h1>
+        <p class="hero-role">Python · React.js · AI Integration · REST APIs</p>
+        <p class="hero-summary">
+          Software Developer with 8+ years of experience building scalable web applications, API-driven architectures, and AI-integrated solutions. Passionate about high-performance full-stack engineering using Python and modern frontend frameworks.
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="#projects" class="hero-cta" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'}); return false;">
+            <i class="bi bi-folder2-open"></i> View Projects
+          </a>
+          <button onclick="showContactPopup()" class="hero-cta-ghost" style="cursor:pointer; border:1px solid var(--border-accent); background:transparent;">
+            <i class="bi bi-send"></i> Get in Touch
+          </button>
+        </div>
+        <div class="stat-row flex-wrap">
+          <div class="stat-item">
+            <div class="stat-num">8<span>+</span></div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3<span>+</span></div>
+            <div class="stat-label">AI Projects</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">10<span>+</span></div>
+            <div class="stat-label">Technologies</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Coffees Consumed</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 d-none d-lg-flex justify-content-end align-items-center">
+        <!-- Decorative code block -->
+        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.8rem; width:300px; font-family:monospace; font-size:0.78rem; line-height:1.9; color:var(--text-muted);">
+          <div style="color:var(--text-faint); margin-bottom:0.5rem; font-size:0.7rem;">profile.py</div>
+          <div><span style="color:#818CF8;">class</span> <span style="color:#818CF8;">Developer</span>:</div>
+          <div>&nbsp;&nbsp;name <span style="color:#94A3B8;">=</span> <span style="color:#FCA5A5;">"You"</span></div>
+          <div>&nbsp;&nbsp;exp <span style="color:#94A3B8;">=</span> <span style="color:#FCD34D;">8</span></div>
+          <div>&nbsp;&nbsp;stack <span style="color:#94A3B8;">=</span> [</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FCA5A5;">"Python"</span>,</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FCA5A5;">"React"</span>,</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FCA5A5;">"FastAPI"</span></div>
+          <div>&nbsp;&nbsp;]</div>
+          <div>&nbsp;&nbsp;ai_ready <span style="color:#94A3B8;">=</span> <span style="color:#818CF8;">True</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── PROJECTS ── -->
+<section id="projects" style="padding:5.5rem 0;">
+  <div class="container">
+    <div class="mb-5">
+      <div class="section-label">What I've built</div>
+      <h2 class="section-title">Projects</h2>
+      <p class="section-sub">End-to-end applications spanning AI healthcare, employee management platforms, and intelligent assessment systems.</p>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Project 1 — Employee Management Portal -->
+      <div class="col-lg-6">
+        <div class="project-card h-100">
+          <div class="project-number">PROJECT / 01</div>
+          <h3 class="project-title">AI-Powered Employee Management Portal</h3>
+          <div class="stack-pills">
+            <span class="stack-pill">Django</span>
+            <span class="stack-pill">React.js</span>
+            <span class="stack-pill">PostgreSQL</span>
+            <span class="stack-pill">JWT Auth</span>
+            <span class="stack-pill">OpenAI API</span>
+          </div>
+          <p class="project-desc">
+            An AI-powered employee management and knowledge-sharing platform designed to streamline workforce administration and internal collaboration. Provides role-based access for Administrators, HR personnel, and Employees — with AI-assisted blog creation and organization-wide knowledge sharing.
+          </p>
+          <div class="mb-3">
+            <div style="font-size:0.72rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.6rem;">Key Contributions</div>
+            <ul class="responsibilities list-unstyled">
+              <li>Developed full-stack platform supporting Admin, HR, and Employee roles</li>
+              <li>Implemented secure JWT-based authentication and role-based authorization</li>
+              <li>Built employee profile management and department management modules</li>
+              <li>Integrated AI services for automated blog content and image generation</li>
+              <li>Designed content approval workflow with draft, review, and publishing stages</li>
+              <li>Created responsive dashboards and RESTful APIs for workforce management</li>
+            </ul>
+          </div>
+          <div class="feature-tags">
+            <span class="feature-tag">Employee Management</span>
+            <span class="feature-tag">Role-Based Access</span>
+            <span class="feature-tag">AI Blog Generator</span>
+            <span class="feature-tag">AI Image Generation</span>
+            <span class="feature-tag">JWT Authentication</span>
+            <span class="feature-tag">Blog Workflow</span>
+            <span class="feature-tag">Dashboard Analytics</span>
+            <span class="feature-tag">Responsive UI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 — Telemedicine -->
+      <div class="col-lg-6">
+        <div class="project-card h-100">
+          <div class="project-number">PROJECT / 02</div>
+          <h3 class="project-title">AI-Assisted Telemedicine & Prescription Management System</h3>
+          <div class="stack-pills">
+            <span class="stack-pill">Django</span>
+            <span class="stack-pill">React.js</span>
+            <span class="stack-pill">PostgreSQL</span>
+            <span class="stack-pill">WebRTC</span>
+            <span class="stack-pill">OpenAI API</span>
+          </div>
+          <p class="project-desc">
+            An AI-powered healthcare platform enabling secure doctor-patient video consultations with real-time speech transcription and intelligent symptom analysis. Assists doctors by generating consultation summaries and prescription recommendations — allowing review, modification, and secure digital delivery to patients.
+          </p>
+          <div class="mb-3">
+            <div style="font-size:0.72rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.6rem;">Key Contributions</div>
+            <ul class="responsibilities list-unstyled">
+              <li>Developed secure video consultation using WebRTC for real-time doctor-patient communication</li>
+              <li>Integrated speech-to-text technology to transcribe patient symptoms during consultations</li>
+              <li>Built AI-assisted symptom analysis and consultation summary generation workflows</li>
+              <li>Developed editable prescription management for medications, dosage, and treatment instructions</li>
+              <li>Implemented PDF prescription generation and secure patient sharing</li>
+              <li>Created patient medical history and consultation tracking modules</li>
+              <li>Implemented JWT authentication and role-based access for Doctors, Patients, and Admins</li>
+              <li>Built responsive React.js dashboards for consultation and prescription management</li>
+            </ul>
+          </div>
+          <div class="feature-tags">
+            <span class="feature-tag">Video Consultation</span>
+            <span class="feature-tag">Speech-to-Text AI</span>
+            <span class="feature-tag">Prescription Generator</span>
+            <span class="feature-tag">PDF Reports</span>
+            <span class="feature-tag">Patient History</span>
+            <span class="feature-tag">Role-Based Access</span>
+            <span class="feature-tag">Medical Records</span>
+            <span class="feature-tag">Responsive Dashboard</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 — AI Test Generator -->
+      <div class="col-lg-6">
+        <div class="project-card h-100">
+          <div class="project-number">PROJECT / 03</div>
+          <h3 class="project-title">AI-Powered Test Generator</h3>
+          <div class="stack-pills">
+            <span class="stack-pill">FastAPI</span>
+            <span class="stack-pill">React.js</span>
+            <span class="stack-pill">PostgreSQL</span>
+            <span class="stack-pill">JWT Auth</span>
+            <span class="stack-pill">OpenAI API</span>
+          </div>
+          <p class="project-desc">
+            An AI-powered assessment generation platform enabling educators and trainers to automatically generate quizzes and test questions from user-provided topics. Supports secure authentication, role-based access control, and AI-driven question generation.
+          </p>
+          <div class="mb-3">
+            <div style="font-size:0.72rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.6rem;">Key Contributions</div>
+            <ul class="responsibilities list-unstyled">
+              <li>Built high-performance REST APIs with FastAPI</li>
+              <li>Implemented JWT authentication and role-based authorization</li>
+              <li>Integrated OpenAI API for MCQ, true/false & descriptive generation</li>
+              <li>Developed React.js dashboards for test creation and management</li>
+              <li>Built question bank and test history modules with PostgreSQL</li>
+            </ul>
+          </div>
+          <div class="feature-tags">
+            <span class="feature-tag">User Auth</span>
+            <span class="feature-tag">AI Generation</span>
+            <span class="feature-tag">Multiple Question Types</span>
+            <span class="feature-tag">Question Bank</span>
+            <span class="feature-tag">Assessment History</span>
+            <span class="feature-tag">Responsive Dashboard</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SKILLS ── -->
+<section id="skills" class="skills-section">
+  <div class="container">
+    <div class="mb-5 reveal">
+      <div class="section-label">What I work with</div>
+      <h2 class="section-title">Skills & Technologies</h2>
+      <p class="section-sub">A broad stack covering backend, frontend, AI integration, databases, and cloud deployment.</p>
+    </div>
+
+    <div class="row g-3">
+
+      <div class="col-md-6 col-xl-4">
+        <div class="skill-group">
+          <div class="skill-group-label"><i class="bi bi-code-slash"></i> Languages</div>
+          <div class="skill-chips">
+            <span class="skill-chip featured">Python</span>
+            <span class="skill-chip">JavaScript (ES6+)</span>
+            <span class="skill-chip">TypeScript</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <div class="skill-group">
+          <div class="skill-group-label"><i class="bi bi-server"></i> Backend</div>
+          <div class="skill-chips">
+            <span class="skill-chip featured">Django</span>
+            <span class="skill-chip featured">Django REST Framework</span>
+            <span class="skill-chip featured">FastAPI</span>
+            <span class="skill-chip">REST APIs</span>
+            <span class="skill-chip">Django ORM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <div class="skill-group">
+          <div class="skill-group-label"><i class="bi bi-layout-text-window"></i> Frontend</div>
+          <div class="skill-chips">
+            <span class="skill-chip featured">React.js</span>
+            <span class="skill-chip">Next.js</span>
+            <span class="skill-chip">Redux Toolkit</span>
+            <span class="skill-chip">React Router</span>
+            <span class="skill-chip">Tailwind CSS</span>
+            <span class="skill-chip">Bootstrap</span>
+            <span class="skill-chip">HTML5</span>
+            <span class="skill-chip">CSS3</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <div class="skill-group">
+          <div class="skill-group-label"><i class="bi bi-robot"></i> AI & APIs</div>
+          <div class="skill-chips">
+            <span class="skill-chip featured">OpenAI API</span>
+            <span class="skill-chip">Prompt Engineering</span>
+            <span class="skill-chip">AI Content Generation</span>
+            <span class="skill-chip">REST API Dev</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <div class="skill-group">
+          <div class="skill-group-label"><i class="bi bi-shield-check"></i> Auth & Security</div>
+          <div class="skill-chips">
+            <span class="skill-chip">JWT Authentication</span>
+            <span class="skill-chip">RBAC</span>
+            <span class="skill-chip">API Security</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <div class="skill-group">
+          <div class="skill-group-label"><i class="bi bi-database"></i> Databases</div>
+          <div class="skill-chips">
+            <span class="skill-chip">PostgreSQL</span>
+            <span class="skill-chip">MySQL</span>
+            <span class="skill-chip">SQLite</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <div class="skill-group">
+          <div class="skill-group-label"><i class="bi bi-tools"></i> Tools</div>
+          <div class="skill-chips">
+            <span class="skill-chip">Git</span>
+            <span class="skill-chip">GitHub</span>
+            <span class="skill-chip">VS Code</span>
+            <span class="skill-chip">Postman</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <div class="skill-group">
+          <div class="skill-group-label"><i class="bi bi-cloud"></i> Cloud & Deploy</div>
+          <div class="skill-chips">
+            <span class="skill-chip">AWS</span>
+            <span class="skill-chip">Vercel</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="contact-card">
+      <div class="section-label d-block mb-2">Let's work together</div>
+      <h3 class="section-title" style="font-size:2rem;">Got a project in mind?</h3>
+      <p class="mt-3">I'm open to full-time roles, freelance projects, and collaborations.<br/>Let's build something great.</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="tel:+918610729866" class="hero-cta">
+          <i class="bi bi-telephone-fill"></i> Call Me
+        </a>
+        <button onclick="showContactPopup()" class="hero-cta-ghost" style="cursor:pointer; border:1px solid var(--border-accent); background:transparent;">
+          <i class="bi bi-chat-dots"></i> Get in Touch
+        </button>
+      </div>
+      <div class="mt-4" style="color:var(--text-muted); font-size:0.9rem;">
+        <i class="bi bi-telephone" style="color:var(--accent);"></i>
+        &nbsp;<a href="tel:+918610729866" style="color:var(--accent); text-decoration:none; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.1rem; letter-spacing:0.04em;">+91 86107 29866</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT POPUP MODAL ── -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background:var(--bg-card); border:1px solid var(--border-accent); border-radius:14px; color:var(--text-primary);">
+      <div class="modal-body text-center p-5">
+        <div style="width:64px;height:64px;background:var(--accent-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+          <i class="bi bi-telephone-fill" style="font-size:1.6rem;color:var(--accent);"></i>
+        </div>
+        <h5 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; margin-bottom:0.4rem;">Let's Talk!</h5>
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.8rem;">Feel free to call or WhatsApp me directly.</p>
+        <div style="background:var(--bg-base); border:1px solid var(--border); border-radius:10px; padding:1.2rem 1.5rem; margin-bottom:1.8rem;">
+          <div style="font-size:0.7rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.4rem;">Mobile Number</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:1.6rem; font-weight:700; color:var(--accent); letter-spacing:0.05em;">+91 86107 29866</div>
+        </div>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+          <a href="tel:+918610729866" class="hero-cta" style="font-size:0.85rem; padding:0.65rem 1.4rem;">
+            <i class="bi bi-telephone-fill"></i> Call Now
+          </a>
+          <a href="https://wa.me/918610729866" target="_blank" class="hero-cta-ghost" style="font-size:0.85rem; padding:0.65rem 1.4rem; margin-left:0;">
+            <i class="bi bi-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+        <button type="button" class="btn btn-link mt-3" data-bs-dismiss="modal" style="color:var(--text-faint); font-size:0.8rem; text-decoration:none;">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container d-flex flex-wrap justify-content-between align-items-center">
+    <div>Designed & built with <span style="color:var(--accent);">♥</span> — 2025</div>
+    <div class="d-flex gap-3 mt-2 mt-md-0">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── WORK IN PROGRESS MODAL ── -->
+<div class="modal fade" id="wipModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background:var(--bg-card); border:1px solid var(--border-accent); border-radius:14px; color:var(--text-primary);">
+      <div class="modal-body text-center p-5">
+        <div style="width:72px;height:72px;background:rgba(251,191,36,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+          <i class="bi bi-tools" style="font-size:1.8rem;color:#FBBF24;"></i>
+        </div>
+        <h5 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; margin-bottom:0.5rem;">Work in Progress</h5>
+        <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.7; margin-bottom:1.5rem;">
+          This project demo is currently being prepared.<br/>
+          I'll be adding live links and detailed case studies soon. Stay tuned!
+        </p>
+        <div style="background:var(--bg-base); border:1px solid var(--border); border-radius:8px; padding:0.9rem 1.2rem; margin-bottom:1.8rem; font-size:0.82rem; color:var(--text-muted);">
+          <i class="bi bi-clock" style="color:#FBBF24;"></i>
+          &nbsp;In the meantime, feel free to reach out directly.
+        </div>
+        <a href="tel:+918610729866" class="hero-cta" style="font-size:0.85rem; padding:0.65rem 1.4rem;">
+          <i class="bi bi-telephone-fill"></i> Contact Me
+        </a>
+        <button type="button" class="btn btn-link d-block mx-auto mt-3" data-bs-dismiss="modal" style="color:var(--text-faint); font-size:0.8rem; text-decoration:none;">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Scroll-based nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--accent)' : '';
+    });
+  });
+
+  // Project cards → WIP popup
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      new bootstrap.Modal(document.getElementById('wipModal')).show();
+    });
+  });
+
+  // Get in Touch → Contact popup
+  function showContactPopup() {
+    new bootstrap.Modal(document.getElementById('contactModal')).show();
+  }
+
+  // ── SCROLL-REVEAL ANIMATIONS ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // Stagger skill groups
+        if (entry.target.classList.contains('skill-group')) {
+          const allGroups = document.querySelectorAll('.skill-group');
+          allGroups.forEach((g, idx) => {
+            setTimeout(() => g.classList.add('visible'), idx * 80);
+          });
+        } else {
+          entry.target.classList.add('visible');
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.skill-group, .reveal').forEach(el => observer.observe(el));
+
+  // Stagger featured chip animation delays
+  document.querySelectorAll('.skill-chip.featured').forEach((chip, i) => {
+    chip.style.animationDelay = `${i * 0.4}s`;
+  });
+</script>
+</body>
+</html>
